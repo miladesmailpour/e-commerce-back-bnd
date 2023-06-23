@@ -59,7 +59,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // create new product
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -68,27 +68,46 @@ router.post('/', (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-  Product.create(req.body)
-    .then((product) => {
-      // if there's product tags, we need to create pairings to bulk create in the ProductTag model
-      if (req.body.tagIds.length) {
-        const productTagIdArr = req.body.tagIds.map((tag_id) => {
-          return {
-            product_id: product.id,
-            tag_id,
-          };
+    if (req.body.tagIds) {
+      try {
+        const product = await Product.create({
+          product_name: req.body.product_name,
+          price: req.body.price,
+          stock: req.body.stock,
+          category_id: req.body.category_id,
+          tagIds: req.body.tagIds,
         });
-        return ProductTag.bulkCreate(productTagIdArr);
+        if (req.body.tagIds.length) {
+          const productTId = req.body.tagIds.map((tag_id) => {
+            return {
+              product_id: product.id,
+              tag_id,
+            };
+          });
+          await ProductTag.bulkCreate(productTId);
+        }
+        res.status(200).json(product);
+      } 
+      catch (err) {
+        res.status(400).json(err);
       }
-      // if no product tags, just respond
-      res.status(200).json(product);
-    })
-    .then((productTagIds) => res.status(200).json(productTagIds))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
-});
+    } else {
+      try {
+        const product = await Product.create({
+          product_name: req.body.product_name,
+          price: req.body.price,
+          stock: req.body.stock,
+          category_id: req.body.category_id,
+        });
+  
+        res.status(200).json(product);
+      } 
+      catch (err) {
+        res.status(400).json(err);
+      }
+    }
+  });
+  
 
 // update product
 router.put('/:id', (req, res) => {
