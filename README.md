@@ -1,5 +1,4 @@
-# 13 Object-Relational Mapping (ORM): E-Commerce Back End
-# Employee Tracker
+# E-Commerce Back End
 
 ## Description
 
