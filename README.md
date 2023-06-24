@@ -15,7 +15,7 @@
 - [How To Use](#how-to-use)
 - [Installation](#installation)
 - [Acceptance_Criteria](#acceptance-criteria)
-- [Helpful Heroku Resources](#helpful-heroku-resources)
+- [Helpful Resources](#helpful-resources)
 - [Database Strcuture](#database)
 - [How to Contribute](#how-to-contribute)
 
@@ -25,10 +25,10 @@ Link to the walkthrough video on ([Goggle Dirve](https://drive.google.com/file/d
 
 ## Installation
 
-config the database ans seeding it
+config the database and seed it
 
 ```
-mysql:
+MySQL:
 source db/schema.sql
 node:
 npm install
@@ -39,7 +39,7 @@ npm start
 ## User Story
 
 ```md
-AS A manager at an internet retail company
+AS A manager at an Internet retail company
 I WANT a back end for my e-commerce website that uses the latest technologies
 SO THAT my company can compete with other e-commerce companies
 ```
@@ -60,7 +60,7 @@ WHEN I test API POST, PUT, and DELETE routes in Insomnia
 THEN I am able to successfully create, update, and delete data in my database
 ```
 
-## Helpful Heroku Resources
+## Helpful Resources
 
 [npm documentation on MySQL2](https://www.npmjs.com/package/mysql2)
 
